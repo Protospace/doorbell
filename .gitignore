@@ -102,4 +102,6 @@ ENV/
 *.swp
 *.swo
 
-card_data.json
+secrets.py
+
+
