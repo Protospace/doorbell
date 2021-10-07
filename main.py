@@ -49,7 +49,7 @@ if __name__ == '__main__':
     logging.info('==========================')
     logging.info('Booting up...')
     pygame.init()
-    pygame.mixer.init()
+    pygame.mixer.init(buffer=1024)
 
     client = EzvizClient(secrets.EZVIZ_EMAIL, secrets.EZVIZ_PASS, 'apiius.ezvizlife.com')
     try:
