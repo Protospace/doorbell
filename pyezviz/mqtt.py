@@ -35,7 +35,7 @@ def on_connect(client, userdata, flags, return_code):
     """On MQTT connect."""
     # pylint: disable=unused-argument
     if return_code == 0:
-        logging.info("connected OK Returned code=%s", return_code)
+        logging.debug("connected OK Returned code=%s", return_code)
     else:
         logging.info("Bad connection Returned code=%s", return_code)
         client.reconnect()

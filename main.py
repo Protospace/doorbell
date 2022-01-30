@@ -1,6 +1,6 @@
-import os
+import os, sys
 import logging
-logging.basicConfig(
+logging.basicConfig(stream=sys.stdout,
     format='[%(asctime)s] %(levelname)s %(module)s/%(funcName)s - %(message)s',
     level=logging.DEBUG if os.environ.get('DEBUG') else logging.INFO)
 
@@ -49,7 +49,8 @@ if __name__ == '__main__':
     logging.info('==========================')
     logging.info('Booting up...')
     pygame.init()
-    pygame.mixer.init(buffer=1024)
+    pygame.mixer.pre_init(buffer=4096)
+    pygame.mixer.init(buffer=4096)
 
     client = EzvizClient(secrets.EZVIZ_EMAIL, secrets.EZVIZ_PASS, 'apiius.ezvizlife.com')
     try:
