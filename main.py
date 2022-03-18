@@ -4,6 +4,8 @@ logging.basicConfig(stream=sys.stdout,
     format='[%(asctime)s] %(levelname)s %(module)s/%(funcName)s - %(message)s',
     level=logging.DEBUG if os.environ.get('DEBUG') else logging.INFO)
 
+os.environ['SDL_AUDIODRIVER'] = 'alsa'
+
 import time
 import json
 
@@ -25,7 +27,11 @@ DOORBELLS = {
     '549660': {
         'name': 'Back Door',
         'sound': 'backdoor.ogg',
-    }
+    },
+    '56504': {
+        'name': 'Test Door',
+        'sound': 'testing.ogg',
+    },
 }
 
 async def play_sound(filename):
@@ -48,12 +54,14 @@ async def ring_bell(sound):
 
     await asyncio.sleep(0.1)
 
-    await play_sound(CHIME)
+    if sound != 'testing.ogg':
+        await play_sound(CHIME)
     await play_sound(sound)
 
     await asyncio.sleep(0.75)
 
-    await play_sound(CHIME)
+    if sound != 'testing.ogg':
+        await play_sound(CHIME)
     await play_sound(sound)
 
     logging.info('Done ringing.')
@@ -101,7 +109,6 @@ if __name__ == '__main__':
     logging.info('==========================')
     logging.info('Booting up...')
 
-    pygame.init()
     pygame.mixer.pre_init(buffer=4096)
     pygame.mixer.init(buffer=4096)
 
